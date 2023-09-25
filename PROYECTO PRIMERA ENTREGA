@@ -1,0 +1,71 @@
+class Producto:
+    def __init__(self, modelo, marca, precio, stock, caracteristicas):
+        self.modelo = modelo
+        self.marca = marca
+        self.precio = precio
+        self.stock = stock
+        self.caracteristicas = caracteristicas
+
+class TiendaCelulares:
+    def __init__(self):
+        self.inventario = []
+
+    def registrar_producto(self, modelo, marca, precio, stock, caracteristicas):
+        producto = Producto(modelo, marca, precio, stock, caracteristicas)
+        self.inventario.append(producto)
+        print(f"Producto '{modelo}' registrado con éxito.")
+
+    def actualizar_producto(self, modelo, nuevo_precio, nuevo_stock, nuevas_caracteristicas):
+        for producto in self.inventario:
+            if producto.modelo == modelo:
+                producto.precio = nuevo_precio
+                producto.stock = nuevo_stock
+                producto.caracteristicas = nuevas_caracteristicas
+                print(f"Información de '{modelo}' actualizada correctamente.")
+                return
+        print(f"El producto '{modelo}' no se encontró en el inventario.")
+
+    def eliminar_producto(self, modelo):
+        for producto in self.inventario:
+            if producto.modelo == modelo:
+                self.inventario.remove(producto)
+                print(f"Producto '{modelo}' eliminado del inventario.")
+                return
+        print(f"El producto '{modelo}' no se encontró en el inventario.")
+
+def main():
+    mi_tienda = TiendaCelulares()
+
+    while True:
+        print("\nMenú Principal:")
+        print("1. Registrar Producto")
+        print("2. Actualizar Producto")
+        print("3. Eliminar Producto")
+        print("4. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            modelo = input("Ingrese el modelo del producto: ")
+            marca = input("Ingrese la marca del producto: ")
+            precio = float(input("Ingrese el precio del producto: "))
+            stock = int(input("Ingrese el stock del producto: "))
+            caracteristicas = input("Ingrese las características del producto: ")
+            mi_tienda.registrar_producto(modelo, marca, precio, stock, caracteristicas)
+        elif opcion == "2":
+            modelo = input("Ingrese el modelo del producto a actualizar: ")
+            nuevo_precio = float(input("Ingrese el nuevo precio: "))
+            nuevo_stock = int(input("Ingrese el nuevo stock: "))
+            nuevas_caracteristicas = input("Ingrese las nuevas características: ")
+            mi_tienda.actualizar_producto(modelo, nuevo_precio, nuevo_stock, nuevas_caracteristicas)
+        elif opcion == "3":
+            modelo = input("Ingrese el modelo del producto a eliminar: ")
+            mi_tienda.eliminar_producto(modelo)
+        elif opcion == "4":
+            print("¡Hasta luego!")
+            break    
+        else:
+            print("Opción no válida. Por favor, seleccione una opción válida.")
+
+if __name__ == "__main__":
+    main()
